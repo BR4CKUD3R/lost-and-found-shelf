@@ -17,7 +17,7 @@ $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // ! Query for items eligible for donation
 $query = "SELECT i.*, c.Category_Name, l.Location_Name, u.Name as Creator_Name,
-                 CASE 
+                 CASE
                      WHEN i.Expiration_Date < NOW() THEN 'expired'
                      WHEN i.Reported_Date < DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN 'eligible'
                      ELSE 'not_eligible'
@@ -26,7 +26,7 @@ $query = "SELECT i.*, c.Category_Name, l.Location_Name, u.Name as Creator_Name,
           LEFT JOIN Category c ON i.Category_ID = c.Category_ID
           LEFT JOIN Location l ON i.Location_ID = l.Location_ID
           LEFT JOIN User u ON i.Creator_ID = u.User_ID
-          WHERE i.Status = 'reported' 
+          WHERE i.Status = 'reported'
           AND (i.Expiration_Date < NOW() OR i.Reported_Date < DATE_SUB(NOW(), INTERVAL 1 MONTH))";
 
 $params = [];
@@ -254,6 +254,8 @@ $user_donations = $stmt->fetchAll();
             </div>
         </div>
     </div>
+
+    
 
     <?php include 'includes/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
